@@ -1,0 +1,236 @@
+Index: simpleworld/src/com/joeberkovitz/simpleworld/model/Square.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/model/Square.as	(revision 52)
+--- simpleworld/src/com/joeberkovitz/simpleworld/model/Square.as	(working copy)
+***************
+*** 9,23 ****
+      public class Square extends WorldShape
+      {
+          [Bindable]
+!         public var size:Number;
+          
+          [Bindable]
+          public var color:uint;
+   
+   
+          override public function get bounds():Rectangle
+          {
+!             return new Rectangle(x, y, size, size);
+          }
+       }
+  }
+--- 9,26 ----
+      public class Square extends WorldShape
+      {
+          [Bindable]
+!         public var width:Number;
+          
+          [Bindable]
++         public var height:Number;
++ 
++         [Bindable]
+          public var color:uint;
+   
+   
+          override public function get bounds():Rectangle
+          {
+!             return new Rectangle(x, y, width, height);
+          }
+       }
+  }
+Index: simpleworld/src/com/joeberkovitz/simpleworld/controller/SizeDragMediator.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/controller/SizeDragMediator.as	(revision 51)
+--- simpleworld/src/com/joeberkovitz/simpleworld/controller/SizeDragMediator.as	(working copy)
+***************
+*** 13,19 ****
+      public class SizeDragMediator extends DragMediator
+      {
+          private var _squareView:SquareFeedback;
+!         private var _oldSize:Number;
+          
+          public function SizeDragMediator(context:ViewContext)
+          {
+--- 13,20 ----
+      public class SizeDragMediator extends DragMediator
+      {
+          private var _squareView:SquareFeedback;
+!         private var _oldWidth:Number;
+!         private var _oldHeight:Number;
+          
+          public function SizeDragMediator(context:ViewContext)
+          {
+***************
+*** 35,41 ****
+          override protected function handleDragStart(e:MouseEvent):void
+          {
+              context.controller.document.undoHistory.openGroup("Resize Square");
+!             _oldSize = _squareView.square.size;
+          }
+          
+          /**
+--- 36,43 ----
+          override protected function handleDragStart(e:MouseEvent):void
+          {
+              context.controller.document.undoHistory.openGroup("Resize Square");
+!             _oldWidth = _squareView.square.width;
+!             _oldHeight = _squareView.square.height;
+          }
+          
+          /**
+***************
+*** 43,49 ****
+           */
+          override protected function handleDragMove(e:MouseEvent):void
+          {
+!             _squareView.square.size = _oldSize + Math.max(documentDragDelta.x, documentDragDelta.y);
+          }
+      }
+  }
+\ No newline at end of file
+--- 45,52 ----
+           */
+          override protected function handleDragMove(e:MouseEvent):void
+          {
+!             _squareView.square.width = _oldWidth + documentDragDelta.x;
+!             _squareView.square.height = _oldHeight + documentDragDelta.y;
+          }
+      }
+  }
+\ No newline at end of file
+Index: simpleworld/src/com/joeberkovitz/simpleworld/controller/AppController.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/controller/AppController.as	(revision 52)
+--- simpleworld/src/com/joeberkovitz/simpleworld/controller/AppController.as	(working copy)
+***************
+*** 34,40 ****
+          {
+              var square:Square = new Square();
+              square.x = square.y = 100;
+!             square.size = 25;
+              square.color = 0;
+              world.shapes.addItem(square);
+          }
+--- 34,40 ----
+          {
+              var square:Square = new Square();
+              square.x = square.y = 100;
+!             square.width = square.height = 25;
+              square.color = 0;
+              world.shapes.addItem(square);
+          }
+Index: simpleworld/src/com/joeberkovitz/simpleworld/controller/WorldMediator.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/controller/WorldMediator.as	(revision 52)
+--- simpleworld/src/com/joeberkovitz/simpleworld/controller/WorldMediator.as	(working copy)
+***************
+*** 45,51 ****
+              var square:Square = new Square();
+              square.x = e.localX;
+              square.y = e.localY;
+!             square.size = 25;
+              square.color = 0;
+              _worldView.world.shapes.addItem(square);
+  
+--- 45,51 ----
+              var square:Square = new Square();
+              square.x = e.localX;
+              square.y = e.localY;
+!             square.width = square.height = 25;
+              square.color = 0;
+              _worldView.world.shapes.addItem(square);
+  
+Index: simpleworld/src/com/joeberkovitz/simpleworld/persistence/AppDocumentEncoder.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/persistence/AppDocumentEncoder.as	(revision 51)
+--- simpleworld/src/com/joeberkovitz/simpleworld/persistence/AppDocumentEncoder.as	(working copy)
+***************
+*** 25,31 ****
+                  if (shape is Square)
+                  {
+                      var square:Square = shape as Square;
+!                     xml.appendChild(<square x={square.x} y={square.y} size={square.size}/>);
+                  }
+              }
+              
+--- 25,31 ----
+                  if (shape is Square)
+                  {
+                      var square:Square = shape as Square;
+!                     //xml.appendChild(<square x={square.x} y={square.y} size={square.size}/>);
+                  }
+              }
+              
+Index: simpleworld/src/com/joeberkovitz/simpleworld/persistence/AppDocumentDecoder.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/persistence/AppDocumentDecoder.as	(revision 51)
+--- simpleworld/src/com/joeberkovitz/simpleworld/persistence/AppDocumentDecoder.as	(working copy)
+***************
+*** 27,33 ****
+                          var square:Square = new Square();
+                          square.x = shapeXml.@x;
+                          square.y = shapeXml.@y;
+!                         square.size = shapeXml.@size;
+                          world.shapes.addItem(square);
+                          break;
+                  } 
+--- 27,34 ----
+                          var square:Square = new Square();
+                          square.x = shapeXml.@x;
+                          square.y = shapeXml.@y;
+!                         square.width = shapeXml.@width;
+!                         square.height = shapeXml.@height;
+                          world.shapes.addItem(square);
+                          break;
+                  } 
+Index: simpleworld/src/com/joeberkovitz/simpleworld/view/SquareFeedback.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/view/SquareFeedback.as	(revision 51)
+--- simpleworld/src/com/joeberkovitz/simpleworld/view/SquareFeedback.as	(working copy)
+***************
+*** 42,51 ****
+              
+              // Draw a gray selection border around the square
+              graphics.lineStyle(1, 0x999999);
+!             graphics.drawRect(0, 0, square.size, square.size);
+  
+              // reposition the resizing handle
+!             _sizeHandle.x = _sizeHandle.y = square.size;
+          }
+      }
+  }
+\ No newline at end of file
+--- 42,52 ----
+              
+              // Draw a gray selection border around the square
+              graphics.lineStyle(1, 0x999999);
+!             graphics.drawRect(0, 0, square.width, square.height);
+  
+              // reposition the resizing handle
+!             _sizeHandle.x = square.width;
+!             _sizeHandle.y = square.height;
+          }
+      }
+  }
+\ No newline at end of file
+Index: simpleworld/src/com/joeberkovitz/simpleworld/view/SquareView.as
+===================================================================
+*** simpleworld/src/com/joeberkovitz/simpleworld/view/SquareView.as	(revision 52)
+--- simpleworld/src/com/joeberkovitz/simpleworld/view/SquareView.as	(working copy)
+***************
+*** 34,40 ****
+              
+              // draw the square itself.
+              graphics.beginFill(square.color);
+!             graphics.drawRect(0, 0, square.size, square.size);
+              graphics.endFill();
+          }
+          
+--- 34,40 ----
+              
+              // draw the square itself.
+              graphics.beginFill(square.color);
+!             graphics.drawRect(0, 0, square.width, square.height);
+              graphics.endFill();
+          }
+          
