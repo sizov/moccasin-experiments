@@ -1,8 +1,16 @@
 <world>
-  <square x="255" y="112" size="25"/>
-  <square x="336" y="211" size="25"/>
-  <square x="168" y="156" size="25"/>
-  <square x="349" y="148" size="25"/>
-  <square x="226" y="236" size="25"/>
-  <square x="276" y="163" size="25"/>
+	<image x="100"
+	       y="100"
+	       size="200"
+	       url="car.jpg"/>
+
+	<image x="400"
+	       y="200"
+	       size="300"
+	       url="venice.jpg"/>
+
+	<square x="155"
+	        y="212"
+	        size="55"
+	        color="0x00ff00"/>
 </world>

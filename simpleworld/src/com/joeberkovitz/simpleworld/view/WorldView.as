@@ -7,7 +7,8 @@ package com.joeberkovitz.simpleworld.view
     import com.joeberkovitz.simpleworld.controller.WorldMediator;
     import com.joeberkovitz.simpleworld.model.Line;
     import com.joeberkovitz.simpleworld.model.Square;
-    import com.joeberkovitz.simpleworld.model.World;
+	import com.joeberkovitz.simpleworld.model.SquareImage;
+	import com.joeberkovitz.simpleworld.model.World;
     
     import flash.utils.getQualifiedClassName;
 
@@ -58,7 +59,11 @@ package com.joeberkovitz.simpleworld.view
          */
         override public function createChildView(child:MoccasinModel):IMoccasinView
         {
-            if (child.value is Square)
+	        if (child.value is SquareImage)
+	        {
+		        return new SquareImageView(context, child);
+	        }
+	        if (child.value is Square)
             {
                 return new SquareView(context, child);
             }

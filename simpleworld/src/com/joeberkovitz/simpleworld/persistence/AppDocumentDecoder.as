@@ -4,7 +4,8 @@ package com.joeberkovitz.simpleworld.persistence
     import com.joeberkovitz.moccasin.persistence.IDocumentDecoder;
     import com.joeberkovitz.simpleworld.model.Line;
     import com.joeberkovitz.simpleworld.model.Square;
-    import com.joeberkovitz.simpleworld.model.World;
+	import com.joeberkovitz.simpleworld.model.SquareImage;
+	import com.joeberkovitz.simpleworld.model.World;
     
     import flash.geom.Point;
 
@@ -31,8 +32,18 @@ package com.joeberkovitz.simpleworld.persistence
                         square.x = shapeXml.@x;
                         square.y = shapeXml.@y;
                         square.size = shapeXml.@size;
+                        square.color = shapeXml.@color;
                         world.shapes.addItem(square);
                         break;
+
+	                case "image":
+		                var squareImage:SquareImage = new SquareImage();
+		                squareImage.x = shapeXml.@x;
+		                squareImage.y = shapeXml.@y;
+		                squareImage.size = shapeXml.@size;
+		                squareImage.imageURL = shapeXml.@url;
+		                world.shapes.addItem(squareImage);
+		                break;
                         
                     case "line":
                         var line:Line = new Line();
