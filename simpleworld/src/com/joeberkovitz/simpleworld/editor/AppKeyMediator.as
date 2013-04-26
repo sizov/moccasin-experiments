@@ -1,19 +1,19 @@
 package com.joeberkovitz.simpleworld.editor
 {
-    import com.joeberkovitz.moccasin.controller.IMoccasinController;
-    import com.joeberkovitz.moccasin.editor.EditorKeyMediator;
-    import com.joeberkovitz.moccasin.editor.MoccasinEditor;
-    
-    import flash.events.KeyboardEvent;
-    
-    /**
+	import com.joeberkovitz.moccasin.controller.IMoccasinController;
+	import com.joeberkovitz.moccasin.editor.EditorKeyMediator;
+	import com.joeberkovitz.moccasin.editor.IMoccasinEditor;
+
+	import flash.events.KeyboardEvent;
+
+	/**
      * Application specific keystroke handler.  This is currently just a skeleton; there
      * are no application-specific keystrokes.
      */
     public class AppKeyMediator extends EditorKeyMediator
     {
         
-        public function AppKeyMediator(controller:IMoccasinController, editor:MoccasinEditor)
+        public function AppKeyMediator(controller:IMoccasinController, editor:IMoccasinEditor)
         {
             super(controller, editor);
         }

@@ -1,21 +1,21 @@
 package com.joeberkovitz.moccasin.editor
 {
-    import com.joeberkovitz.moccasin.document.UndoHistory;
-    import com.joeberkovitz.moccasin.event.ControllerEvent;
-    import com.joeberkovitz.moccasin.event.SelectEvent;
-    import com.joeberkovitz.moccasin.event.UndoEvent;
-    
-    import mx.collections.XMLListCollection;
-    import mx.controls.MenuBar;
-    import mx.events.MenuEvent;
-    import mx.events.PropertyChangeEvent;
-    
-    /**
+	import com.joeberkovitz.moccasin.document.UndoHistory;
+	import com.joeberkovitz.moccasin.event.ControllerEvent;
+	import com.joeberkovitz.moccasin.event.SelectEvent;
+	import com.joeberkovitz.moccasin.event.UndoEvent;
+
+	import mx.collections.XMLListCollection;
+	import mx.controls.MenuBar;
+	import mx.events.MenuEvent;
+	import mx.events.PropertyChangeEvent;
+
+	/**
      * Basic menu bar for Moccasin application functionality.
      */
     public class EditorMenuBar extends MenuBar
     {
-        private var _editor:MoccasinEditor;
+        private var _editor:IMoccasinEditor;
         
         private var menuBarProvider:XMLListCollection;
 
@@ -47,12 +47,12 @@ package com.joeberkovitz.moccasin.editor
         }
         
         [Bindable]
-        public function get editor():MoccasinEditor
+        public function get editor():IMoccasinEditor
         {
             return _editor;
         }
         
-        public function set editor(e:MoccasinEditor):void
+        public function set editor(e:IMoccasinEditor):void
         {
             if (editor != null)
             {

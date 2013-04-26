@@ -1,18 +1,18 @@
 package com.joeberkovitz.moccasin.editor
 {
-    import com.joeberkovitz.moccasin.controller.IMoccasinController;
-    
-    import flash.events.KeyboardEvent;
-    
-    /**
+	import com.joeberkovitz.moccasin.controller.IMoccasinController;
+
+	import flash.events.KeyboardEvent;
+
+	/**
      * Keyboard mediator for basic Moccasin application functionality.
      */
     public class EditorKeyMediator
     {
         private var _controller:IMoccasinController;
-        protected var _editor:MoccasinEditor;
+        protected var _editor:IMoccasinEditor;
 
-        public function EditorKeyMediator(controller:IMoccasinController, editor:MoccasinEditor)
+        public function EditorKeyMediator(controller:IMoccasinController, editor:IMoccasinEditor)
         {
             _controller = controller;
             _editor = editor;
