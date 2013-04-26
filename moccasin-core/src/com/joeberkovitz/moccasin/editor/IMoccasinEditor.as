@@ -5,8 +5,13 @@ package com.joeberkovitz.moccasin.editor
 	import flash.events.IEventDispatcher;
 
 	import mx.core.UIComponent;
+	import mx.managers.IFocusManagerComponent;
 
-	public interface IMoccasinEditor extends IEventDispatcher
+	[Event(type="com.joeberkovitz.moccasin.event.EditorEvent", name="documentChanged")]
+	[Event(type="com.joeberkovitz.moccasin.event.EditorEvent", name="documentLayoutChange")]
+	[Event(type="com.joeberkovitz.moccasin.event.EditorEvent", name="displayScaleChange")]
+
+	public interface IMoccasinEditor extends IFocusManagerComponent, IEventDispatcher
 	{
 		function get controller():IMoccasinController;
 

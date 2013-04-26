@@ -144,12 +144,12 @@ package com.joeberkovitz.simpleworld.view
 			imageLoader.load(imageLoaderRequest);
 		}
 
-		public function onProgressStatus(e:ProgressEvent)
+		public function onProgressStatus(e:ProgressEvent):void
 		{
 			// this is where progress will be monitored
 		}
 
-		public function onLoaderReady(e:Event)
+		public function onLoaderReady(e:Event):void
 		{
 			imageBitmap = Bitmap(imageLoader.content);
 

@@ -22,7 +22,6 @@ package com.joeberkovitz.moccasin.editor
 	import mx.containers.Canvas;
 	import mx.core.Application;
 	import mx.core.UIComponent;
-	import mx.managers.IFocusManagerComponent;
 	import mx.managers.PopUpManager;
 
 	[Event(type="com.joeberkovitz.moccasin.event.EditorEvent",name="documentChanged")]
@@ -43,7 +42,7 @@ package com.joeberkovitz.moccasin.editor
      *
      * Note that menu bars, tool bars, and so forth are completely separate from the editor.
      */
-    public class MoccasinEditor extends Canvas implements IFocusManagerComponent, IMoccasinEditor
+    public class MoccasinEditor extends Canvas implements IMoccasinEditor
     {
         /**
          * Flag indicating that the editor is completely loaded.
